@@ -36,7 +36,7 @@ def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
     return agg
 
 # load dataset
-dataset = read_csv('savior.csv', header=0, index_col=0)
+dataset = read_csv('savior_order.csv', header=0, index_col=0)
 values = dataset.values
 
 print('first values top 10  is ')
@@ -73,8 +73,8 @@ reframed = series_to_supervised(values, in_step, 1)
 # print(reframed.values[:10, :8])
 
 # drop columns we don't want to predict
-a = 5
-reframed.drop(reframed.columns[[ in_step * a + 4, in_step * a + 1, in_step * a + 2, in_step * a + 3]], axis=1, inplace=True)
+# a = 4
+# reframed.drop(reframed.columns[[ in_step * a + 0,in_step * a + 1,in_step * a + 2]], axis=1, inplace=True)
 # a = 8
 # for i in range(59, 29, -1):
 #     # print i*a+1,i*a+2,i*a+3,i*a+4,i*a+5,i*a+6,i*a+7
@@ -114,7 +114,7 @@ model.add(LSTM(100, input_shape=(train_X.shape[1], train_X.shape[2])))
 model.add(Dense(1))
 model.compile(loss='mae', optimizer='adam')
 # fit network
-history = model.fit(train_X, train_y, epochs=30, batch_size=21, validation_data=(test_X, test_y), verbose=2, shuffle=False)
+history = model.fit(train_X, train_y, epochs=100, batch_size=21, validation_data=(test_X, test_y), verbose=2, shuffle=False)
 # plot history
 # pyplot.plot(history.history['loss'], label='train')
 # pyplot.plot(history.history['val_loss'], label='test')
